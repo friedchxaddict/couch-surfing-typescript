@@ -25,7 +25,7 @@ function showReviewTotal(value: number) {
   const result = reviews.reduce((r, o) => (o.date > r.date ? o : r));
   if (reviewTotalDisplay !== null) {
     reviewTotalDisplay.innerHTML =
-      'review total ' + value.toString() + '| last reviewed by' + result.name;
+      'review total ' + value.toString() + '| last reviewer was' + result.name;
   }
 }
 
