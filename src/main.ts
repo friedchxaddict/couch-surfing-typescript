@@ -1,9 +1,11 @@
-const reviewTotalDisplay = document.querySelector('#reviews');
+import { showReviewTotal, populateUser } from './utils';
 
-const returningUserDisplay = document.querySelector('#returning-user');
-const userNameDisplay = document.querySelector('#user');
-
-const reviews = [
+const reviews: {
+  name: string;
+  stars: number;
+  loyaltyUser: boolean;
+  date: string;
+}[] = [
   {
     name: 'Sheia',
     stars: 5,
@@ -23,34 +25,22 @@ const reviews = [
     date: '27-03-2021',
   },
 ];
-const result = reviews.reduce((r, o) => (o.date > r.date ? o : r));
 
-function showReviewTotal(value: number, reviewer: string, isLoyalty: boolean) {
-  const iconDisplay = isLoyalty ? '⭐️' : '';
-  if (reviewTotalDisplay !== null) {
-    reviewTotalDisplay.innerHTML =
-      'review total ' +
-      value.toString() +
-      '| last reviewer was' +
-      reviewer +
-      ' ' +
-      iconDisplay;
-  }
-  console.log(iconDisplay);
-}
-
-showReviewTotal(reviews.length, result.name, result.loyaltyUser);
-
-const you = {
-  userName: 'Bobby',
+const you: {
+  firstName: string;
+  lastName: string;
+  isReturning: boolean;
+  age: number;
+  stayedAt: string[];
+} = {
+  firstName: 'Bobby',
+  lastName: 'Womack',
   isReturning: true,
+  age: 45,
+  stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow'],
 };
 
-function populateUser(isReturning: boolean, userName: string) {
-  if (isReturning) {
-    returningUserDisplay!.innerHTML = 'back';
-  }
-  userNameDisplay!.innerHTML = userName;
-}
+const result = reviews.reduce((r, o) => (o.date > r.date ? o : r));
 
-populateUser(you.isReturning, you.userName);
+showReviewTotal(reviews.length, result.name, result.loyaltyUser);
+populateUser(you.isReturning, you.firstName);

@@ -1,7 +1,6 @@
 "use strict";
-const reviewTotalDisplay = document.querySelector('#reviews');
-const returningUserDisplay = document.querySelector('#returning-user');
-const userNameDisplay = document.querySelector('#user');
+Object.defineProperty(exports, "__esModule", { value: true });
+const utils_1 = require("./utils");
 const reviews = [
     {
         name: 'Sheia',
@@ -22,29 +21,13 @@ const reviews = [
         date: '27-03-2021',
     },
 ];
-const result = reviews.reduce((r, o) => (o.date > r.date ? o : r));
-function showReviewTotal(value, reviewer, isLoyalty) {
-    const iconDisplay = isLoyalty ? '⭐️' : '';
-    if (reviewTotalDisplay !== null) {
-        reviewTotalDisplay.innerHTML =
-            'review total ' +
-                value.toString() +
-                '| last reviewer was' +
-                reviewer +
-                ' ' +
-                iconDisplay;
-    }
-    console.log(iconDisplay);
-}
-showReviewTotal(reviews.length, result.name, result.loyaltyUser);
 const you = {
-    userName: 'Bobby',
+    firstName: 'Bobby',
+    lastName: 'Womack',
     isReturning: true,
+    age: 45,
+    stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow'],
 };
-function populateUser(isReturning, userName) {
-    if (isReturning) {
-        returningUserDisplay.innerHTML = 'back';
-    }
-    userNameDisplay.innerHTML = userName;
-}
-populateUser(you.isReturning, you.userName);
+const result = reviews.reduce((r, o) => (o.date > r.date ? o : r));
+(0, utils_1.showReviewTotal)(reviews.length, result.name, result.loyaltyUser);
+(0, utils_1.populateUser)(you.isReturning, you.firstName);
