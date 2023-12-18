@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const utils_1 = require("./utils");
+import { showReviewTotal, populateUser } from './utils.js';
 const reviews = [
     {
         name: 'Sheia',
@@ -29,5 +27,57 @@ const you = {
     stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow'],
 };
 const result = reviews.reduce((r, o) => (o.date > r.date ? o : r));
-(0, utils_1.showReviewTotal)(reviews.length, result.name, result.loyaltyUser);
-(0, utils_1.populateUser)(you.isReturning, you.firstName);
+const properties = [
+    {
+        image: 'images/colombian-shack.jpeg',
+        title: 'Colombian Shack',
+        price: 45,
+        location: {
+            firstLine: 'shack 37',
+            city: 'Bogota',
+            code: 45632,
+            country: 'Colombia',
+        },
+        contact: 'marywinkle@gmail.com',
+        isAvailable: true,
+    },
+    {
+        image: 'images/polish-cottage.webp',
+        title: 'Polish Cottage',
+        price: 34,
+        location: {
+            firstLine: 'no 23',
+            city: 'Gdansk',
+            code: 343903,
+            country: 'Poland',
+        },
+        contact: 'garydavis@hotmail.com',
+        isAvailable: false,
+    },
+    {
+        image: 'images/london-flat.jpeg',
+        title: 'London Flat',
+        price: 23,
+        location: {
+            firstLine: 'flat 15',
+            city: 'London',
+            code: 35433,
+            country: 'United Kingdom',
+        },
+        contact: 'andyluger@aol.com',
+        isAvailable: true,
+    },
+];
+showReviewTotal(reviews.length, result.name, result.loyaltyUser);
+populateUser(you.isReturning, you.firstName);
+const propertyContainer = document.querySelector('.properties');
+for (let i = 0; i < properties.length; i++) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.innerHTML = properties[i].title;
+    const image = document.createElement('img');
+    image.setAttribute('src', properties[i].image);
+    card.appendChild(image);
+    propertyContainer === null || propertyContainer === void 0 ? void 0 : propertyContainer.appendChild(card);
+}
+console.log(propertyContainer);
