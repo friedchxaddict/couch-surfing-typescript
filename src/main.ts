@@ -1,27 +1,30 @@
 import { showReviewTotal, populateUser } from './utils.js';
+import { Permissions, LoyaltyUser } from './enum.js';
+const propertyContainer = document.querySelector('.properties');
+const footer = document.querySelector('.footer');
 
 const reviews: {
   name: string;
   stars: number;
-  loyaltyUser: boolean;
+  loyaltyUser: LoyaltyUser;
   date: string;
 }[] = [
   {
     name: 'Sheia',
     stars: 5,
-    loyaltyUser: true,
+    loyaltyUser: LoyaltyUser.GOLD_USER,
     date: '01-04-2021',
   },
   {
     name: 'Andrzej',
     stars: 3,
-    loyaltyUser: true,
+    loyaltyUser: LoyaltyUser.SILVER_USER,
     date: '28-03-2021',
   },
   {
     name: 'Omar',
     stars: 4,
-    loyaltyUser: true,
+    loyaltyUser: LoyaltyUser.BRONZE_USER,
     date: '27-03-2021',
   },
 ];
@@ -99,8 +102,6 @@ const properties: {
 showReviewTotal(reviews.length, result.name, result.loyaltyUser);
 populateUser(you.isReturning, you.firstName);
 
-const propertyContainer = document.querySelector('.properties');
-
 for (let i = 0; i < properties.length; i++) {
   const card = document.createElement('div');
   card.classList.add('card');
@@ -111,4 +112,15 @@ for (let i = 0; i < properties.length; i++) {
   propertyContainer?.appendChild(card);
 }
 
-console.log(propertyContainer);
+let currentLocation: [string, string, number] = ['Skokie', '6:30PM', 45];
+if (footer !== null) {
+  footer.innerHTML =
+    currentLocation[0] +
+    ' ' +
+    currentLocation[1] +
+    ' ' +
+    currentLocation[2] +
+    'degrees';
+}
+
+console.log(currentLocation);
