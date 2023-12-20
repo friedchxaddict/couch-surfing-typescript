@@ -13,8 +13,10 @@ export function showReviewTotal(
   const iconDisplay = isLoyalty === LoyaltyUser.GOLD_USER ? '⭐️' : '';
   if (reviewTotalDisplay !== null) {
     reviewTotalDisplay.innerHTML =
-      'review total ' +
       value.toString() +
+      ' ' +
+      'Review' +
+      makeMultiple(value) +
       '| last reviewer was' +
       reviewer +
       ' ' +
@@ -29,21 +31,8 @@ export function populateUser(isReturning: boolean, userName: string) {
   userNameDisplay!.innerHTML = userName;
 }
 
-function add(firstValue: number | string, secondValue: number | string) {
-  let result;
-  if (typeof firstValue === 'number' && typeof secondValue === 'number') {
-    result = firstValue + secondValue;
-  }
-  if (typeof firstValue === 'string' && typeof secondValue === 'string') {
-    result = firstValue + ' ' + secondValue;
-  }
-  if (typeof firstValue === 'number' && typeof secondValue === 'string') {
-    console.log('cannot perform this addition');
-  }
-  if (typeof firstValue === 'string' && typeof secondValue === 'number') {
-    console.log('cannot perform this addition');
-  }
+export function makeMultiple(value: number): string {
+  if (value > 1 || value == 0) {
+    return 's';
+  } else return '';
 }
-
-const combinedReviews = add(5, 1);
-const firstNameLastName = add('Ania', 'Kubow');

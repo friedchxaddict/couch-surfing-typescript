@@ -63,7 +63,7 @@ const properties = [
     {
         image: 'images/polish-cottage.webp',
         title: 'Polish Cottage',
-        price: 34,
+        price: 30,
         location: {
             firstLine: 'no 23',
             city: 'Gdansk',
@@ -76,7 +76,7 @@ const properties = [
     {
         image: 'images/london-flat.jpeg',
         title: 'London Flat',
-        price: 23,
+        price: 25,
         location: {
             firstLine: 'flat 15',
             city: 'London',
@@ -106,7 +106,7 @@ for (let i = 0; i < properties.length; i++) {
     image.setAttribute('src', properties[i].image);
     card.appendChild(image);
     propertyContainer === null || propertyContainer === void 0 ? void 0 : propertyContainer.appendChild(card);
-    showDetails(you.permissions, card, properties[i].price);
+    showDetails(isLoggedIn /* or you.permissions */, card, properties[i].price);
 }
 let currentLocation = ['Skokie', '6:30PM', 45];
 if (footer !== null) {

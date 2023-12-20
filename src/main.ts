@@ -1,5 +1,6 @@
 import { showReviewTotal, populateUser } from './utils.js';
 import { Permissions, LoyaltyUser } from './enum.js';
+import { Price, Country } from './types.js';
 const propertyContainer = document.querySelector('.properties');
 const footer = document.querySelector('.footer');
 
@@ -61,12 +62,12 @@ const result = reviews.reduce((r, o) => (o.date > r.date ? o : r));
 const properties: {
   image: string;
   title: string;
-  price: number;
+  price: Price;
   location: {
     firstLine: string;
     city: string;
     code: number;
-    country: string;
+    country: Country;
   };
   contact: string;
   isAvailable: boolean;
@@ -87,7 +88,7 @@ const properties: {
   {
     image: 'images/polish-cottage.webp',
     title: 'Polish Cottage',
-    price: 34,
+    price: 30,
     location: {
       firstLine: 'no 23',
       city: 'Gdansk',
@@ -100,7 +101,7 @@ const properties: {
   {
     image: 'images/london-flat.jpeg',
     title: 'London Flat',
-    price: 23,
+    price: 25,
     location: {
       firstLine: 'flat 15',
       city: 'London',
@@ -139,7 +140,7 @@ for (let i = 0; i < properties.length; i++) {
   image.setAttribute('src', properties[i].image);
   card.appendChild(image);
   propertyContainer?.appendChild(card);
-  showDetails(you.permissions, card, properties[i].price);
+  showDetails(isLoggedIn /* or you.permissions */, card, properties[i].price);
 }
 
 let currentLocation: [string, string, number] = ['Skokie', '6:30PM', 45];
