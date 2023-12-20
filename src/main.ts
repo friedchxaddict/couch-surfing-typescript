@@ -19,25 +19,34 @@ const reviews: {
     name: 'Andrzej',
     stars: 3,
     loyaltyUser: LoyaltyUser.SILVER_USER,
-    date: '28-03-2021',
+    date: '03-28-2021',
   },
   {
     name: 'Omar',
     stars: 4,
     loyaltyUser: LoyaltyUser.BRONZE_USER,
-    date: '27-03-2021',
+    date: '03-27-2021',
   },
 ];
 
-const you: {
-  firstName: string;
-  lastName: string;
-  isReturning: boolean;
-  age: number;
-  stayedAt: string[];
-} = {
+// const you: {
+//   firstName: string;
+//   lastName: string;
+//   isReturning: boolean;
+//   age: number;
+//   stayedAt: string[];
+// } = {
+//   firstName: 'Bobby',
+//   lastName: 'Womack',
+//   isReturning: true,
+//   age: 45,
+//   stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow'],
+// };
+
+const you = {
   firstName: 'Bobby',
   lastName: 'Womack',
+  permissions: Permissions.ADMIN,
   isReturning: true,
   age: 45,
   stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow'],
@@ -122,5 +131,3 @@ if (footer !== null) {
     currentLocation[2] +
     'degrees';
 }
-
-console.log(currentLocation);
