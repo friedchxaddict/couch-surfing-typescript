@@ -89,6 +89,19 @@ const properties = [
         contact: 'andyluger@aol.com',
         isAvailable: true,
     },
+    {
+        image: 'images/malaysian-hotel.jpeg',
+        title: 'Malia Hotel',
+        price: 35,
+        location: {
+            firstLine: 'Room 4',
+            city: 'Malia',
+            code: 45334,
+            country: 'Malaysia',
+        },
+        contact: +60349822083,
+        isAvailable: false,
+    },
 ];
 showReviewTotal(reviews.length, result.name, result.loyaltyUser);
 populateUser(you.isReturning, you.firstName);
