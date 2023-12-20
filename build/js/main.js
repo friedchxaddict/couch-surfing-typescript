@@ -2,6 +2,7 @@ import { showReviewTotal, populateUser } from './utils.js';
 import { Permissions, LoyaltyUser } from './enum.js';
 const propertyContainer = document.querySelector('.properties');
 const footer = document.querySelector('.footer');
+let isLoggedIn;
 const reviews = [
     {
         name: 'Sheia',
@@ -20,6 +21,7 @@ const reviews = [
         stars: 4,
         loyaltyUser: LoyaltyUser.BRONZE_USER,
         date: '03-27-2021',
+        description: 'Avid traveler that has a thirst for different cultures',
     },
 ];
 // const you: {
@@ -87,6 +89,15 @@ const properties = [
 ];
 showReviewTotal(reviews.length, result.name, result.loyaltyUser);
 populateUser(you.isReturning, you.firstName);
+let authorityStatus;
+isLoggedIn = true;
+function showDetails(authorityStatus, element, price) {
+    if (authorityStatus) {
+        const priceDisplay = document.createElement('div');
+        priceDisplay.innerHTML = price.toString() + '/night';
+        element.appendChild(priceDisplay);
+    }
+}
 for (let i = 0; i < properties.length; i++) {
     const card = document.createElement('div');
     card.classList.add('card');
@@ -95,6 +106,7 @@ for (let i = 0; i < properties.length; i++) {
     image.setAttribute('src', properties[i].image);
     card.appendChild(image);
     propertyContainer === null || propertyContainer === void 0 ? void 0 : propertyContainer.appendChild(card);
+    showDetails(you.permissions, card, properties[i].price);
 }
 let currentLocation = ['Skokie', '6:30PM', 45];
 if (footer !== null) {
