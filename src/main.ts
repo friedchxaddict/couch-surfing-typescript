@@ -1,18 +1,21 @@
-import { showReviewTotal, populateUser } from './utils.js';
+import {
+  showReviewTotal,
+  populateUser,
+  getTopTwoReviews,
+  showDetails,
+} from './utils.js';
 import { Permissions, LoyaltyUser } from './enum.js';
 import { Price, Country } from './types.js';
+import { Review, Property } from './interfaces.js';
 const propertyContainer = document.querySelector('.properties');
+const reviewContainer = document.querySelector('.reviews');
+const container = document.querySelector('.container');
+const button = document.querySelector('button');
 const footer = document.querySelector('.footer');
 
 let isLoggedIn: boolean;
 
-const reviews: {
-  name: string;
-  stars: number;
-  loyaltyUser: LoyaltyUser;
-  date: string;
-  description?: string;
-}[] = [
+const reviews: Review[] = [
   {
     name: 'Sheia',
     stars: 5,
@@ -59,19 +62,7 @@ const you = {
 
 const result = reviews.reduce((r, o) => (o.date > r.date ? o : r));
 
-const properties: {
-  image: string;
-  title: string;
-  price: Price;
-  location: {
-    firstLine: string;
-    city: string;
-    code: number;
-    country: Country;
-  };
-  contact: string;
-  isAvailable: boolean;
-}[] = [
+const properties: Property[] = [
   {
     image: 'images/colombian-shack.jpeg',
     title: 'Colombian Shack',
@@ -120,18 +111,6 @@ let authorityStatus: any;
 
 isLoggedIn = true;
 
-function showDetails(
-  authorityStatus: boolean | Permissions,
-  element: HTMLDivElement,
-  price: number
-) {
-  if (authorityStatus) {
-    const priceDisplay = document.createElement('div');
-    priceDisplay.innerHTML = price.toString() + '/night';
-    element.appendChild(priceDisplay);
-  }
-}
-
 for (let i = 0; i < properties.length; i++) {
   const card = document.createElement('div');
   card.classList.add('card');
@@ -141,6 +120,26 @@ for (let i = 0; i < properties.length; i++) {
   card.appendChild(image);
   propertyContainer?.appendChild(card);
   showDetails(isLoggedIn /* or you.permissions */, card, properties[i].price);
+}
+
+let count = 0;
+function addReviews(array: Review[]): void {
+  if (!count) {
+    count++;
+    const topTwo = getTopTwoReviews(array);
+    console.log(topTwo);
+    for (let i = 0; i < topTwo.length; i++) {
+      const card = document.createElement('div');
+      card.classList.add('review-card');
+      card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name;
+      reviewContainer!.appendChild(card);
+    }
+    container!.removeChild(button!);
+  }
+}
+
+if (button !== null) {
+  button.addEventListener('click', () => addReviews(reviews));
 }
 
 let currentLocation: [string, string, number] = ['Skokie', '6:30PM', 45];
@@ -153,3 +152,33 @@ if (footer !== null) {
     currentLocation[2] +
     'degrees';
 }
+
+class MainProperty {
+  src: string;
+  title: string;
+  reviews: Review[];
+  constructor(src: string, title: string, reviews: Review[]) {
+    this.src = src;
+    this.title = title;
+    this.reviews = reviews;
+  }
+}
+
+let yourMainProperty = new MainProperty(
+  'images/italian-property.jpeg',
+  'Italian House',
+  [
+    {
+      name: 'Olive',
+      stars: 5,
+      loyaltyUser: LoyaltyUser.GOLD_USER,
+      date: '04-12-2021',
+    },
+  ]
+);
+
+console.log(yourMainProperty.src);
+const mainImageContainer = document.querySelector('.main-image');
+const image = document.createElement('img');
+image.setAttribute('src', yourMainProperty.src);
+mainImageContainer!.appendChild(image);

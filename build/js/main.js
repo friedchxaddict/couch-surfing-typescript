@@ -1,6 +1,9 @@
-import { showReviewTotal, populateUser } from './utils.js';
+import { showReviewTotal, populateUser, getTopTwoReviews, showDetails, } from './utils.js';
 import { Permissions, LoyaltyUser } from './enum.js';
 const propertyContainer = document.querySelector('.properties');
+const reviewContainer = document.querySelector('.reviews');
+const container = document.querySelector('.container');
+const button = document.querySelector('button');
 const footer = document.querySelector('.footer');
 let isLoggedIn;
 const reviews = [
@@ -91,13 +94,6 @@ showReviewTotal(reviews.length, result.name, result.loyaltyUser);
 populateUser(you.isReturning, you.firstName);
 let authorityStatus;
 isLoggedIn = true;
-function showDetails(authorityStatus, element, price) {
-    if (authorityStatus) {
-        const priceDisplay = document.createElement('div');
-        priceDisplay.innerHTML = price.toString() + '/night';
-        element.appendChild(priceDisplay);
-    }
-}
 for (let i = 0; i < properties.length; i++) {
     const card = document.createElement('div');
     card.classList.add('card');
@@ -107,6 +103,24 @@ for (let i = 0; i < properties.length; i++) {
     card.appendChild(image);
     propertyContainer === null || propertyContainer === void 0 ? void 0 : propertyContainer.appendChild(card);
     showDetails(isLoggedIn /* or you.permissions */, card, properties[i].price);
+}
+let count = 0;
+function addReviews(array) {
+    if (!count) {
+        count++;
+        const topTwo = getTopTwoReviews(array);
+        console.log(topTwo);
+        for (let i = 0; i < topTwo.length; i++) {
+            const card = document.createElement('div');
+            card.classList.add('review-card');
+            card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name;
+            reviewContainer.appendChild(card);
+        }
+        container.removeChild(button);
+    }
+}
+if (button !== null) {
+    button.addEventListener('click', () => addReviews(reviews));
 }
 let currentLocation = ['Skokie', '6:30PM', 45];
 if (footer !== null) {
@@ -118,3 +132,23 @@ if (footer !== null) {
             currentLocation[2] +
             'degrees';
 }
+class MainProperty {
+    constructor(src, title, reviews) {
+        this.src = src;
+        this.title = title;
+        this.reviews = reviews;
+    }
+}
+let yourMainProperty = new MainProperty('images/italian-property.jpeg', 'Italian House', [
+    {
+        name: 'Olive',
+        stars: 5,
+        loyaltyUser: LoyaltyUser.GOLD_USER,
+        date: '04-12-2021',
+    },
+]);
+console.log(yourMainProperty.src);
+const mainImageContainer = document.querySelector('.main-image');
+const image = document.createElement('img');
+image.setAttribute('src', yourMainProperty.src);
+mainImageContainer.appendChild(image);

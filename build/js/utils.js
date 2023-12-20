@@ -22,10 +22,21 @@ export function populateUser(isReturning, userName) {
     }
     userNameDisplay.innerHTML = userName;
 }
+export function showDetails(authorityStatus, element, price) {
+    if (authorityStatus) {
+        const priceDisplay = document.createElement('div');
+        priceDisplay.innerHTML = price.toString() + '/night';
+        element.appendChild(priceDisplay);
+    }
+}
 export function makeMultiple(value) {
     if (value > 1 || value == 0) {
         return 's';
     }
     else
         return '';
+}
+export function getTopTwoReviews(reviews) {
+    const sortedReviews = reviews.sort((a, b) => b.stars - a.stars);
+    return sortedReviews.slice(0, 2);
 }
