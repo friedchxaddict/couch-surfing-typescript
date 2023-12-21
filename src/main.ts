@@ -5,13 +5,13 @@ import {
   showDetails,
 } from './utils.js';
 import { Permissions, LoyaltyUser } from './enum.js';
-import { Price, Country } from './types.js';
 import { Review, Property } from './interfaces.js';
 const propertyContainer = document.querySelector('.properties');
 const reviewContainer = document.querySelector('.reviews');
 const container = document.querySelector('.container');
 const button = document.querySelector('button');
 const footer = document.querySelector('.footer');
+import { MainProperty } from './classes.js';
 
 let isLoggedIn: boolean;
 
@@ -36,20 +36,6 @@ const reviews: Review[] = [
     description: 'Avid traveler that has a thirst for different cultures',
   },
 ];
-
-// const you: {
-//   firstName: string;
-//   lastName: string;
-//   isReturning: boolean;
-//   age: number;
-//   stayedAt: string[];
-// } = {
-//   firstName: 'Bobby',
-//   lastName: 'Womack',
-//   isReturning: true,
-//   age: 45,
-//   stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow'],
-// };
 
 const you = {
   firstName: 'Bobby',
@@ -163,18 +149,7 @@ if (footer !== null) {
     currentLocation[1] +
     ' ' +
     currentLocation[2] +
-    'degrees';
-}
-
-class MainProperty {
-  src: string;
-  title: string;
-  reviews: Review[];
-  constructor(src: string, title: string, reviews: Review[]) {
-    this.src = src;
-    this.title = title;
-    this.reviews = reviews;
-  }
+    '°';
 }
 
 let yourMainProperty = new MainProperty(
